@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/MonoGame.ShaderEffects/bin
+/MonoGame.ShaderEffects/obj
+/MonoGame.ShaderEffects-Samples/bin
+/MonoGame.ShaderEffects-Samples/obj
+/MonoGame.ShaderEffects-Samples/Content/bin
+/MonoGame.ShaderEffects-Samples/Content/obj

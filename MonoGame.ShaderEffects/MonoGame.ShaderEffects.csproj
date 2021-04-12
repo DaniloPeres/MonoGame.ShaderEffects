@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>MonoGame.GlowEffect is a library to generate effects with Shaders.
+
+Options:
+- Stroke (MonoGame.StrokeEffect)
+- Gray Scale
+- Circle
+- Cut off by angle
+- Glow (MonoGame.GlowEffect)</Description>
+    <PackageIcon>Logo.png</PackageIcon>
+    <RepositoryUrl>https://github.com/DaniloPeres/MonoGame.ShaderEffects</RepositoryUrl>
+    <PackageTags>MonoGame ShaderEffects, MonoGame Shader, MonoGame Effect</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Content\DirectX\Circle.xnb" />
+    <None Remove="Content\DirectX\CutOffByAngle.xnb" />
+    <None Remove="Content\DirectX\GrayScale.xnb" />
+    <None Remove="Content\OpenGL\Circle.xnb" />
+    <None Remove="Content\OpenGL\CutOffByAngle.xnb" />
+    <None Remove="Content\OpenGL\GrayScale.xnb" />
+    <None Include="..\Logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Content\DirectX\Circle.xnb" />
+    <EmbeddedResource Include="Content\DirectX\CutOffByAngle.xnb" />
+    <EmbeddedResource Include="Content\DirectX\GrayScale.xnb" />
+    <EmbeddedResource Include="Content\OpenGL\Circle.xnb" />
+    <EmbeddedResource Include="Content\OpenGL\CutOffByAngle.xnb" />
+    <EmbeddedResource Include="Content\OpenGL\GrayScale.xnb">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.Portable" Version="3.7.1.189" />
+  </ItemGroup>
+
+</Project>
