@@ -11,7 +11,7 @@ There is a nuget package avaliable here https://www.nuget.org/packages/MonoGame.
 
 # Examples
 
-<img src="http://daniloperes.com/MonoGame.GlowEffect.Samples.gif?1" alt="MonoGame.ShaderEffects" width="640" height="496 ">
+<img src="http://daniloperes.com/MonoGame.ShaderEffects.Samples.gif?1" alt="MonoGame.ShaderEffects" width="640" height="496 ">
 
 # Shader Effects
 
