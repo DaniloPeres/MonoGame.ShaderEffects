@@ -3,8 +3,7 @@
 </p>
 
 # MonoGame.GlowEffect
-<b>MonoGame.ShaderEffects</b> is a library to generate glow for Texture2D in MonoGame. We also support Sprite Font.
-We use a shader effect to generate the Glow effect.
+<b>MonoGame.ShaderEffects</b> <b>MonoGame.ShaderEffects</b> is a library to generate effects with Shaders.
 
 ## Nuget package
 There is a nuget package avaliable here https://www.nuget.org/packages/MonoGame.ShaderEffects/.
