@@ -22,21 +22,24 @@ namespace MonoGame
 
         public static Texture2D ApplyEffect(Texture2D src, Effect effect, GraphicsDevice graphics)
         {
-            var renderTarget = new RenderTarget2D(graphics, src.Width, src.Height);
-
-            // Draw the img with the effect
-            graphics.SetRenderTarget(renderTarget);
-            graphics.Clear(Color.Transparent);
-
-            using (SpriteBatch spriteBatch = new SpriteBatch(graphics))
+            lock (graphics)
             {
-                spriteBatch.Begin(SpriteSortMode.Immediate, effect: effect);
-                spriteBatch.Draw(src, new Vector2(0, 0), Color.White);
-                spriteBatch.End();
-            }
-            graphics.SetRenderTarget(null);
+                var renderTarget = new RenderTarget2D(graphics, src.Width, src.Height);
 
-            return renderTarget;
+                // Draw the img with the effect
+                graphics.SetRenderTarget(renderTarget);
+                graphics.Clear(Color.Transparent);
+
+                using (SpriteBatch spriteBatch = new SpriteBatch(graphics))
+                {
+                    spriteBatch.Begin(SpriteSortMode.Immediate, effect: effect);
+                    spriteBatch.Draw(src, new Vector2(0, 0), Color.White);
+                    spriteBatch.End();
+                }
+                graphics.SetRenderTarget(null);
+
+                return renderTarget;
+            }
         }
 
         public static Texture2D GetPixel(GraphicsDevice graphics)

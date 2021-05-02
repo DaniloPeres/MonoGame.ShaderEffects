@@ -20,23 +20,26 @@ namespace MonoGame
 
         public static Texture2D CreateCircle(Point diameter, GraphicsDevice graphics)
         {
-            var effect = GetCircleEffect(graphics);
-
-            var renderTarget = new RenderTarget2D(graphics, diameter.X, diameter.Y);
-
-            // Draw the img with the effect
-            graphics.SetRenderTarget(renderTarget);
-            graphics.Clear(Color.Transparent);
-
-            using (SpriteBatch spriteBatch = new SpriteBatch(graphics))
+            lock (graphics)
             {
-                spriteBatch.Begin(SpriteSortMode.Immediate, effect: effect);
-                spriteBatch.Draw(GetPixel(graphics), new Rectangle(Point.Zero, diameter), Color.White);
-                spriteBatch.End();
-            }
-            graphics.SetRenderTarget(null);
+                var effect = GetCircleEffect(graphics);
 
-            return renderTarget;
+                var renderTarget = new RenderTarget2D(graphics, diameter.X, diameter.Y);
+
+                // Draw the img with the effect
+                graphics.SetRenderTarget(renderTarget);
+                graphics.Clear(Color.Transparent);
+
+                using (SpriteBatch spriteBatch = new SpriteBatch(graphics))
+                {
+                    spriteBatch.Begin(SpriteSortMode.Immediate, effect: effect);
+                    spriteBatch.Draw(GetPixel(graphics), new Rectangle(Point.Zero, diameter), Color.White);
+                    spriteBatch.End();
+                }
+                graphics.SetRenderTarget(null);
+
+                return renderTarget;
+            }
         }
     }
 }
