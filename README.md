@@ -12,6 +12,13 @@ There is a nuget package avaliable here https://www.nuget.org/packages/MonoGame.
 
 <img src="http://daniloperes.com/MonoGame.ShaderEffects.Samples.gif?1" alt="MonoGame.ShaderEffects" width="640" height="496">
 
+- [Stroke Effect](#stroke-effect)
+- [Glow Effect](#glow-effect)
+- [Gray Scale Effect](#gray-scale-effect)
+- [Circle Effect](#circle-effect)
+- [Rounded Rectangle Effect](#rounded-rectangle-effect)
+- [Cut off by angle](#cut-off-by-angle)
+
 # Shader Effects
 
 ## Stroke Effect
@@ -39,6 +46,22 @@ Example:
 ```csharp
 int circleDiameter = 150;
 var myCircle = ShaderEffects.CreateCircle(circleDiameter, GraphicsDevice);
+```
+
+## Rounded Rectangle Effect
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| radius | float | The round the corners of an element's outer border edge |
+| rectangleSize | Point | The size of the rectangle |
+| color | Color | The color of the object |
+
+Example:
+```csharp
+float radius = 30;
+Point rectangleSize = new Point(150, 200);
+Color color = Color.White;
+var myRoundedRectangle = ShaderEffects.CreateRoudedRectangle(radius, rectangleSize, color, GraphicsDevice);
 ```
 
 ## Cut off by angle
