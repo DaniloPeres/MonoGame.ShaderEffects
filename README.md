@@ -2,8 +2,8 @@
   <img src="https://raw.githubusercontent.com/DaniloPeres/MonoGame.ShaderEffects/main/Logo.png" alt="MonoGame.ShaderEffects" width="120" height="120">
 </p>
 
-# MonoGame.GlowEffect
-<b>MonoGame.ShaderEffects</b> <b>MonoGame.ShaderEffects</b> is a library to generate effects with Shaders.
+# MonoGame.ShaderEffects
+<b>MonoGame.ShaderEffects</b> is a library to generate effects with Shaders.
 
 ## Nuget package
 There is a nuget package avaliable here https://www.nuget.org/packages/MonoGame.ShaderEffects/.
