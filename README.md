@@ -10,7 +10,7 @@ There is a nuget package avaliable here https://www.nuget.org/packages/MonoGame.
 
 # Examples
 
-<img src="http://daniloperes.com/MonoGame.ShaderEffects.Samples.gif?1" alt="MonoGame.ShaderEffects" width="640" height="496">
+<img src="https://raw.githubusercontent.com/DaniloPeres/MonoGame.ShaderEffects/main/MonoGame.ShaderEffects-Samples/Sample.gif" width="600" height="639">
 
 - [Stroke Effect](#stroke-effect)
 - [Glow Effect](#glow-effect)
