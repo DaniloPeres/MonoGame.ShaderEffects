@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="http://daniloperes.com/MonoGame.ShaderEffects_Logo_256.png" alt="MonoGame.ShaderEffects" width="120" height="120">
+  <img src="https://raw.githubusercontent.com/DaniloPeres/MonoGame.ShaderEffects/main/Logo.png" alt="MonoGame.ShaderEffects" width="120" height="120">
 </p>
 
 # MonoGame.GlowEffect
