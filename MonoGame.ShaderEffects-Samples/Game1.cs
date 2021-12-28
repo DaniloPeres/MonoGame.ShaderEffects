@@ -16,23 +16,31 @@ namespace MonoGame.ShaderEffects_Samples
             imgDragonStrokeOutlineNoTexture,
             imgDragonGrayScale,
             imgCircle,
+            imgRoundedRectangle,
             imgDragonCutOffByAngle,
             imgDragonCutOffByAngleStart,
-            imgDragonGlow; 
+            imgDragonGlow,
+            imgDragonGlowWithoutTexture; 
 
         SpriteFont arialSpritFont;
 
         float angleCutOff = 0;
+        float roundedRectangleRadiusCounter = 10;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 850;
+            graphics.ApplyChanges();
+
             base.Initialize();
         }
 
@@ -44,8 +52,9 @@ namespace MonoGame.ShaderEffects_Samples
             imgDragonStrokeOutline = StrokeEffect.CreateStroke(imgDragon, 4, Color.LightGreen, GraphicsDevice, StrokeType.OutlineAndTexture);
             imgDragonStrokeOutlineNoTexture = StrokeEffect.CreateStroke(imgDragon, 4, Color.LightGreen, GraphicsDevice, StrokeType.OutlineWithoutTexture);
             imgDragonGrayScale = ShaderEffects.ApplyGrayScaleEffect(imgDragon, GraphicsDevice);
-            imgDragonGlow = GlowEffect.CreateGlow(imgDragon, Color.Magenta, 35, 35, 0, 0, 1, 6, 0, 0, 15, 15, GraphicsDevice);
-            imgCircle = ShaderEffects.CreateCircle(150, GraphicsDevice);
+            imgDragonGlow = GlowEffect.GlowEffect.CreateGlow(imgDragon, Color.Magenta, 10, 0.3f, 0.5f, 0.15f, 0.2f, GraphicsDevice);
+            imgDragonGlowWithoutTexture = GlowEffect.GlowEffect.CreateGlow(imgDragon, Color.Magenta,10, 0.3f, 0.5f, 0.15f, 0.2f,  GraphicsDevice, GlowEffect.GlowType.GlowWithoutTexture);
+            imgCircle = ShaderEffects.CreateCircle(150, Color.YellowGreen, GraphicsDevice);
 
             arialSpritFont = Content.Load<SpriteFont>("Arial");
 
@@ -89,6 +98,13 @@ namespace MonoGame.ShaderEffects_Samples
             imgDragonCutOffByAngleStart?.Dispose();
             imgDragonCutOffByAngleStart = ShaderEffects.ApplyCutOffByAngleEffect(imgDragon, 280f, angleCutOff, GraphicsDevice);
 
+            const float maxRadius = 60;
+            roundedRectangleRadiusCounter += 0.3f;
+            float roundedRectangleRadiusActual = Math.Abs(roundedRectangleRadiusCounter % (maxRadius * 2) - maxRadius);
+
+            imgRoundedRectangle?.Dispose();
+            imgRoundedRectangle = ShaderEffects.CreateRoudedRectangle(roundedRectangleRadiusActual, new Point(150), Color.Yellow, GraphicsDevice);
+
             base.Update(gameTime);
         }
 
@@ -115,10 +131,6 @@ namespace MonoGame.ShaderEffects_Samples
             spriteBatch.Draw(imgDragonGrayScale, pos + new Vector2(0, 75), Color.White);
 
             pos = new Vector2(10, pos.Y + 300);
-            spriteBatch.DrawString(arialSpritFont, "Circle", pos, Color.Black);
-            spriteBatch.Draw(imgCircle, pos + new Vector2(0, 75), Color.White);
-
-            pos += new Vector2(200, 0);
             spriteBatch.DrawString(arialSpritFont, "Cut off by angle", pos, Color.Black);
             spriteBatch.Draw(imgDragonStrokeOutlineNoTexture, pos + new Vector2(0, 75), Color.White);
             spriteBatch.Draw(imgDragonCutOffByAngle, pos + new Vector2(0, 75) + new Vector2(4), Color.White);
@@ -128,9 +140,22 @@ namespace MonoGame.ShaderEffects_Samples
             spriteBatch.Draw(imgDragonStrokeOutlineNoTexture, pos + new Vector2(0, 75), Color.White);
             spriteBatch.Draw(imgDragonCutOffByAngleStart, pos + new Vector2(0, 75) + new Vector2(4), Color.White);
 
-            pos += new Vector2(220, 0);
+            pos += new Vector2(200, 0);
             spriteBatch.DrawString(arialSpritFont, "Glow", pos, Color.Black);
-            spriteBatch.Draw(imgDragonGlow, pos + new Vector2(-55, 20), Color.White);
+            spriteBatch.Draw(imgDragonGlow, pos + new Vector2(0, 75), Color.White);
+
+            pos += new Vector2(200, 0);
+            spriteBatch.DrawString(arialSpritFont, "Glow\nwithout texture", pos, Color.Black);
+            spriteBatch.Draw(imgDragonGlowWithoutTexture, pos + new Vector2(0, 75), Color.White);
+
+
+            pos = new Vector2(10, pos.Y + 300);
+            spriteBatch.DrawString(arialSpritFont, "Circle", pos, Color.Black);
+            spriteBatch.Draw(imgCircle, pos + new Vector2(0, 35), Color.White);
+
+            pos += new Vector2(220, 0);
+            spriteBatch.DrawString(arialSpritFont, "Rounded Rectangle", pos, Color.Black);
+            spriteBatch.Draw(imgRoundedRectangle, pos + new Vector2(0, 35), Color.White);
 
             spriteBatch.End();
 

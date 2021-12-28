@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MonoGame
 {
@@ -13,12 +10,12 @@ namespace MonoGame
             return GetEffect("Circle", graphics);
         }
 
-        public static Texture2D CreateCircle(int diameter, GraphicsDevice graphics)
+        public static Texture2D CreateCircle(int diameter, Color color, GraphicsDevice graphics)
         {
-            return CreateCircle(new Point(diameter), graphics);
+            return CreateCircle(new Point(diameter), color, graphics);
         }
 
-        public static Texture2D CreateCircle(Point diameter, GraphicsDevice graphics)
+        public static Texture2D CreateCircle(Point diameter, Color color, GraphicsDevice graphics)
         {
             lock (graphics)
             {
@@ -33,7 +30,7 @@ namespace MonoGame
                 using (SpriteBatch spriteBatch = new SpriteBatch(graphics))
                 {
                     spriteBatch.Begin(SpriteSortMode.Immediate, effect: effect);
-                    spriteBatch.Draw(GetPixel(graphics), new Rectangle(Point.Zero, diameter), Color.White);
+                    spriteBatch.Draw(GetPixel(graphics), new Rectangle(Point.Zero, diameter), color);
                     spriteBatch.End();
                 }
                 graphics.SetRenderTarget(null);

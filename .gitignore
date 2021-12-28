@@ -9,3 +9,7 @@
 /MonoGame.ShaderEffects-Samples/obj
 /MonoGame.ShaderEffects-Samples/Content/bin
 /MonoGame.ShaderEffects-Samples/Content/obj
+/MonoGame.ShaderEffects/Content/.mgstats
+/MonoGame.ShaderEffects/Content/CutOffByAngle.mgcontent
+/MonoGame.ShaderEffects/Content/GrayScale.mgcontent
+/MonoGame.ShaderEffects/Content/RoundedRectangle.mgcontent

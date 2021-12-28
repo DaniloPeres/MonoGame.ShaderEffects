@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame
 {
@@ -14,7 +12,7 @@ namespace MonoGame
 
         public static Texture2D ApplyGrayScaleEffect(Texture2D src, GraphicsDevice graphics)
         {
-            return ApplyEffect(src, GetGrayScaleEffect(graphics), graphics);
+            return ApplyEffect(src, GetGrayScaleEffect(graphics), Color.White, graphics);
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame
 {
@@ -19,7 +17,7 @@ namespace MonoGame
             effect.Parameters["angleCutOff"].SetValue(angleCutOff);
             effect.Parameters["angleStart"].SetValue(angleStart);
 
-            return ApplyEffect(src, effect, graphics);
+            return ApplyEffect(src, effect, Color.White, graphics);
         }
     }
 }

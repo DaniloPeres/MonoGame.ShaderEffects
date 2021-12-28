@@ -20,7 +20,7 @@ namespace MonoGame
         private static string CurrentShaderExtension => GetShaderExtension() == GraphicsApi.OPEN_GL ? "OpenGL" : "DirectX";
         private static Texture2D pixel;
 
-        public static Texture2D ApplyEffect(Texture2D src, Effect effect, GraphicsDevice graphics)
+        public static Texture2D ApplyEffect(Texture2D src, Effect effect, Color color, GraphicsDevice graphics)
         {
             lock (graphics)
             {
@@ -33,7 +33,7 @@ namespace MonoGame
                 using (SpriteBatch spriteBatch = new SpriteBatch(graphics))
                 {
                     spriteBatch.Begin(SpriteSortMode.Immediate, effect: effect);
-                    spriteBatch.Draw(src, new Vector2(0, 0), Color.White);
+                    spriteBatch.Draw(src, new Vector2(0, 0), color);
                     spriteBatch.End();
                 }
                 graphics.SetRenderTarget(null);

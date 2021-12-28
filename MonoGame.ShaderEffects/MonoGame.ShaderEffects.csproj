@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -15,16 +15,18 @@ Options:
     <RepositoryUrl>https://github.com/DaniloPeres/MonoGame.ShaderEffects</RepositoryUrl>
     <PackageTags>MonoGame ShaderEffects, MonoGame Shader, MonoGame Effect</PackageTags>
     <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Content\DirectX\Circle.xnb" />
     <None Remove="Content\DirectX\CutOffByAngle.xnb" />
     <None Remove="Content\DirectX\GrayScale.xnb" />
+    <None Remove="Content\DirectX\RoundedRectangle.xnb" />
     <None Remove="Content\OpenGL\Circle.xnb" />
     <None Remove="Content\OpenGL\CutOffByAngle.xnb" />
     <None Remove="Content\OpenGL\GrayScale.xnb" />
+    <None Remove="Content\OpenGL\RoundedRectangle.xnb" />
     <None Include="..\Logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -35,11 +37,13 @@ Options:
     <EmbeddedResource Include="Content\DirectX\Circle.xnb" />
     <EmbeddedResource Include="Content\DirectX\CutOffByAngle.xnb" />
     <EmbeddedResource Include="Content\DirectX\GrayScale.xnb" />
+    <EmbeddedResource Include="Content\DirectX\RoundedRectangle.xnb" />
     <EmbeddedResource Include="Content\OpenGL\Circle.xnb" />
     <EmbeddedResource Include="Content\OpenGL\CutOffByAngle.xnb" />
     <EmbeddedResource Include="Content\OpenGL\GrayScale.xnb">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Content\OpenGL\RoundedRectangle.xnb" />
   </ItemGroup>
 
   <ItemGroup>
