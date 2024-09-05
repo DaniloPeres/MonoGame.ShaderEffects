@@ -3,165 +3,163 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 
-namespace MonoGame.ShaderEffects_Samples
+namespace MonoGame.ShaderEffects_Samples;
+
+public class Game1 : Game
 {
-    public class Game1 : Game
+    private GraphicsDeviceManager graphics;
+    private SpriteBatch spriteBatch;
+
+    Texture2D
+        imgDragon,
+        imgDragonStrokeOutline,
+        imgDragonStrokeOutlineNoTexture,
+        imgDragonGrayScale,
+        imgCircle,
+        imgRoundedRectangle,
+        imgDragonCutOffByAngle,
+        imgDragonCutOffByAngleStart,
+        imgDragonGlow,
+        imgDragonGlowWithoutTexture;
+
+    SpriteFont arialSpritFont;
+
+    float angleCutOff = 0;
+    float roundedRectangleRadiusCounter = 10;
+
+    public Game1()
     {
-        private GraphicsDeviceManager graphics;
-        private SpriteBatch spriteBatch;
+        graphics = new GraphicsDeviceManager(this);
 
-        Texture2D
-            imgDragon,
-            imgDragonStrokeOutline,
-            imgDragonStrokeOutlineNoTexture,
-            imgDragonGrayScale,
-            imgCircle,
-            imgRoundedRectangle,
-            imgDragonCutOffByAngle,
-            imgDragonCutOffByAngleStart,
-            imgDragonGlow,
-            imgDragonGlowWithoutTexture; 
+        Content.RootDirectory = "Content";
+        IsMouseVisible = true;
+    }
 
-        SpriteFont arialSpritFont;
+    protected override void Initialize()
+    {
+        graphics.PreferredBackBufferWidth = 850;
+        graphics.PreferredBackBufferHeight = 850;
+        graphics.ApplyChanges();
 
-        float angleCutOff = 0;
-        float roundedRectangleRadiusCounter = 10;
+        base.Initialize();
+    }
 
-        public Game1()
+    protected override void LoadContent()
+    {
+        spriteBatch = new SpriteBatch(GraphicsDevice);
+
+        GlowEffect.InitializeAndLoad(Content, GraphicsDevice);
+
+        imgDragon = Content.Load<Texture2D>("Dragon");
+        imgDragonStrokeOutline = StrokeEffect.CreateStroke(imgDragon, 4, Color.LightGreen, GraphicsDevice, StrokeType.OutlineAndTexture);
+        imgDragonStrokeOutlineNoTexture = StrokeEffect.CreateStroke(imgDragon, 4, Color.LightGreen, GraphicsDevice, StrokeType.OutlineWithoutTexture);
+        imgDragonGrayScale = ShaderEffects.ApplyGrayScaleEffect(imgDragon, GraphicsDevice);
+        imgDragonGlow = GlowEffect.CreateGlow(imgDragon, Color.Magenta, 20, 30, 0, 100);
+        imgDragonGlowWithoutTexture = GlowEffect.CreateGlow(imgDragon, Color.Magenta, 20, 30, 0, 100, true);
+        imgCircle = ShaderEffects.CreateCircle(150, Color.YellowGreen, GraphicsDevice);
+
+        arialSpritFont = Content.Load<SpriteFont>("Arial");
+
+        // crate a render target with margins
+        using (var renderTargetResize = new RenderTarget2D(GraphicsDevice, imgDragon.Width + 20, imgDragon.Height + 20))
         {
-            graphics = new GraphicsDeviceManager(this);
-            
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
-        }
+            GraphicsDevice.SetRenderTarget(renderTargetResize);
+            GraphicsDevice.Clear(Color.Green);
 
-        protected override void Initialize()
-        {
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 850;
-            graphics.ApplyChanges();
-
-            base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            imgDragon = Content.Load<Texture2D>("Dragon");
-            imgDragonStrokeOutline = StrokeEffect.CreateStroke(imgDragon, 4, Color.LightGreen, GraphicsDevice, StrokeType.OutlineAndTexture);
-            imgDragonStrokeOutlineNoTexture = StrokeEffect.CreateStroke(imgDragon, 4, Color.LightGreen, GraphicsDevice, StrokeType.OutlineWithoutTexture);
-            imgDragonGrayScale = ShaderEffects.ApplyGrayScaleEffect(imgDragon, GraphicsDevice);
-            imgDragonGlow = GlowEffect.GlowEffect.CreateGlow(imgDragon, Color.Magenta, 10, 0.3f, 0.5f, 0.15f, 0.2f, GraphicsDevice);
-            imgDragonGlowWithoutTexture = GlowEffect.GlowEffect.CreateGlow(imgDragon, Color.Magenta,10, 0.3f, 0.5f, 0.15f, 0.2f,  GraphicsDevice, GlowEffect.GlowType.GlowWithoutTexture);
-            imgCircle = ShaderEffects.CreateCircle(150, Color.YellowGreen, GraphicsDevice);
-
-            arialSpritFont = Content.Load<SpriteFont>("Arial");
-
-            // crate a render target with margins
-            using (var renderTargetResize = new RenderTarget2D(GraphicsDevice, imgDragon.Width + 20, imgDragon.Height + 20))
+            using (SpriteBatch spriteBatch = new SpriteBatch(GraphicsDevice))
             {
-                GraphicsDevice.SetRenderTarget(renderTargetResize);
-                GraphicsDevice.Clear(Color.Green);
+                // Create a new texture with the new size
+                spriteBatch.Begin();
 
-                using (SpriteBatch spriteBatch = new SpriteBatch(GraphicsDevice))
-                {
-                    // Create a new texture with the new size
-                    spriteBatch.Begin();
+                // draw the texture with the margin
+                spriteBatch.Draw(imgDragon, new Vector2(10), Color.White);
 
-                    // draw the texture with the margin
-                    spriteBatch.Draw(imgDragon, new Vector2(10), Color.White);
-
-                    spriteBatch.End();
-                }
-
-                var renderTarget = new RenderTarget2D(GraphicsDevice, renderTargetResize.Width, renderTargetResize.Height);
-
-                // Draw the img with the effect
-                GraphicsDevice.SetRenderTarget(renderTarget);
-                GraphicsDevice.Clear(Color.Transparent);
+                spriteBatch.End();
             }
+
+            var renderTarget = new RenderTarget2D(GraphicsDevice, renderTargetResize.Width, renderTargetResize.Height);
+
+            // Draw the img with the effect
+            GraphicsDevice.SetRenderTarget(renderTarget);
+            GraphicsDevice.Clear(Color.Transparent);
         }
+    }
 
-        protected override void Update(GameTime gameTime)
-        {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+    protected override void Update(GameTime gameTime)
+    {
+        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            Exit();
 
-            angleCutOff+=2;
-            if (angleCutOff > 360)
-                angleCutOff = angleCutOff % 360;
+        angleCutOff += 2;
+        if (angleCutOff > 360)
+            angleCutOff = angleCutOff % 360;
 
-            imgDragonCutOffByAngle?.Dispose();
-            imgDragonCutOffByAngle = ShaderEffects.ApplyCutOffByAngleEffect(imgDragon, angleCutOff, 0, GraphicsDevice);
+        imgDragonCutOffByAngle?.Dispose();
+        imgDragonCutOffByAngle = ShaderEffects.ApplyCutOffByAngleEffect(imgDragon, angleCutOff, 0, GraphicsDevice);
 
-            imgDragonCutOffByAngleStart?.Dispose();
-            imgDragonCutOffByAngleStart = ShaderEffects.ApplyCutOffByAngleEffect(imgDragon, 280f, angleCutOff, GraphicsDevice);
+        imgDragonCutOffByAngleStart?.Dispose();
+        imgDragonCutOffByAngleStart = ShaderEffects.ApplyCutOffByAngleEffect(imgDragon, 280f, angleCutOff, GraphicsDevice);
 
-            const float maxRadius = 60;
-            roundedRectangleRadiusCounter += 0.3f;
-            float roundedRectangleRadiusActual = Math.Abs(roundedRectangleRadiusCounter % (maxRadius * 2) - maxRadius);
+        const float maxRadius = 60;
+        roundedRectangleRadiusCounter += 0.3f;
+        float roundedRectangleRadiusActual = Math.Abs(roundedRectangleRadiusCounter % (maxRadius * 2) - maxRadius);
 
-            imgRoundedRectangle?.Dispose();
-            imgRoundedRectangle = ShaderEffects.CreateRoudedRectangle(roundedRectangleRadiusActual, new Point(150), Color.Yellow, GraphicsDevice);
+        imgRoundedRectangle?.Dispose();
+        imgRoundedRectangle = ShaderEffects.CreateRoudedRectangle(roundedRectangleRadiusActual, new Point(150), Color.Yellow, GraphicsDevice);
 
-            base.Update(gameTime);
-        }
+        base.Update(gameTime);
+    }
 
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+    protected override void Draw(GameTime gameTime)
+    {
+        GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+        spriteBatch.Begin();
 
-            Vector2 pos = new Vector2(10, 10);
-            spriteBatch.DrawString(arialSpritFont, "Original", pos, Color.Black);
-            spriteBatch.Draw(imgDragon, pos + new Vector2(0, 75), Color.White);
+        Vector2 pos = new Vector2(10, 10);
+        spriteBatch.DrawString(arialSpritFont, "Original", pos, Color.Black);
+        spriteBatch.Draw(imgDragon, pos + new Vector2(0, 75), Color.White);
 
-            pos += new Vector2(200, 0);
-            spriteBatch.DrawString(arialSpritFont, "Stroke outline", pos, Color.Black);
-            spriteBatch.Draw(imgDragonStrokeOutline, pos + new Vector2(0, 75), Color.White);
+        pos += new Vector2(200, 0);
+        spriteBatch.DrawString(arialSpritFont, "Stroke outline", pos, Color.Black);
+        spriteBatch.Draw(imgDragonStrokeOutline, pos + new Vector2(0, 75), Color.White);
 
-            pos += new Vector2(200, 0);
-            spriteBatch.DrawString(arialSpritFont, "Stroke outline\nwithout texture", pos, Color.Black);
-            spriteBatch.Draw(imgDragonStrokeOutlineNoTexture, pos + new Vector2(0, 75), Color.White);
+        pos += new Vector2(200, 0);
+        spriteBatch.DrawString(arialSpritFont, "Stroke outline\nwithout texture", pos, Color.Black);
+        spriteBatch.Draw(imgDragonStrokeOutlineNoTexture, pos + new Vector2(0, 75), Color.White);
 
-            pos += new Vector2(200, 0);
-            spriteBatch.DrawString(arialSpritFont, "Gray scale", pos, Color.Black);
-            spriteBatch.Draw(imgDragonGrayScale, pos + new Vector2(0, 75), Color.White);
+        pos += new Vector2(200, 0);
+        spriteBatch.DrawString(arialSpritFont, "Gray scale", pos, Color.Black);
+        spriteBatch.Draw(imgDragonGrayScale, pos + new Vector2(0, 75), Color.White);
 
-            pos = new Vector2(10, pos.Y + 300);
-            spriteBatch.DrawString(arialSpritFont, "Cut off by angle", pos, Color.Black);
-            spriteBatch.Draw(imgDragonStrokeOutlineNoTexture, pos + new Vector2(0, 75), Color.White);
-            spriteBatch.Draw(imgDragonCutOffByAngle, pos + new Vector2(0, 75) + new Vector2(4), Color.White);
+        pos = new Vector2(10, pos.Y + 300);
+        spriteBatch.DrawString(arialSpritFont, "Cut off by angle", pos, Color.Black);
+        spriteBatch.Draw(imgDragonStrokeOutlineNoTexture, pos + new Vector2(0, 75), Color.White);
+        spriteBatch.Draw(imgDragonCutOffByAngle, pos + new Vector2(0, 75) + new Vector2(4), Color.White);
 
-            pos += new Vector2(200, 0);
-            spriteBatch.DrawString(arialSpritFont, "Cut off by angle\nstart angle", pos, Color.Black);
-            spriteBatch.Draw(imgDragonStrokeOutlineNoTexture, pos + new Vector2(0, 75), Color.White);
-            spriteBatch.Draw(imgDragonCutOffByAngleStart, pos + new Vector2(0, 75) + new Vector2(4), Color.White);
+        pos += new Vector2(200, 0);
+        spriteBatch.DrawString(arialSpritFont, "Cut off by angle\nstart angle", pos, Color.Black);
+        spriteBatch.Draw(imgDragonStrokeOutlineNoTexture, pos + new Vector2(0, 75), Color.White);
+        spriteBatch.Draw(imgDragonCutOffByAngleStart, pos + new Vector2(0, 75) + new Vector2(4), Color.White);
 
-            pos += new Vector2(200, 0);
-            spriteBatch.DrawString(arialSpritFont, "Glow", pos, Color.Black);
-            spriteBatch.Draw(imgDragonGlow, pos + new Vector2(0, 75), Color.White);
+        pos += new Vector2(200, 0);
+        spriteBatch.DrawString(arialSpritFont, "Glow", pos, Color.Black);
+        spriteBatch.Draw(imgDragonGlow, pos + new Vector2(0, 75), Color.White);
 
-            pos += new Vector2(200, 0);
-            spriteBatch.DrawString(arialSpritFont, "Glow\nwithout texture", pos, Color.Black);
-            spriteBatch.Draw(imgDragonGlowWithoutTexture, pos + new Vector2(0, 75), Color.White);
+        pos += new Vector2(200, 0);
+        spriteBatch.DrawString(arialSpritFont, "Glow\nwithout texture", pos, Color.Black);
+        spriteBatch.Draw(imgDragonGlowWithoutTexture, pos + new Vector2(0, 75), Color.White);
 
+        pos = new Vector2(10, pos.Y + 300);
+        spriteBatch.DrawString(arialSpritFont, "Circle", pos, Color.Black);
+        spriteBatch.Draw(imgCircle, pos + new Vector2(0, 35), Color.White);
 
-            pos = new Vector2(10, pos.Y + 300);
-            spriteBatch.DrawString(arialSpritFont, "Circle", pos, Color.Black);
-            spriteBatch.Draw(imgCircle, pos + new Vector2(0, 35), Color.White);
+        pos += new Vector2(220, 0);
+        spriteBatch.DrawString(arialSpritFont, "Rounded Rectangle", pos, Color.Black);
+        spriteBatch.Draw(imgRoundedRectangle, pos + new Vector2(0, 35), Color.White);
 
-            pos += new Vector2(220, 0);
-            spriteBatch.DrawString(arialSpritFont, "Rounded Rectangle", pos, Color.Black);
-            spriteBatch.Draw(imgRoundedRectangle, pos + new Vector2(0, 35), Color.White);
+        spriteBatch.End();
 
-            spriteBatch.End();
-
-
-
-            base.Draw(gameTime);
-        }
+        base.Draw(gameTime);
     }
 }

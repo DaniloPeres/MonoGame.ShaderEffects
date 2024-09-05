@@ -1,53 +1,58 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Authors>Danilo Peres</Authors>
+		<Company>Danilo Peres</Company>
+		<Description>
+			MonoGame.GlowEffect is a library to generate effects with Shaders.
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Description>MonoGame.GlowEffect is a library to generate effects with Shaders.
-
-Options:
-- Stroke (MonoGame.StrokeEffect)
-- Gray Scale
-- Circle
-- Cut off by angle
-- Glow (MonoGame.GlowEffect)</Description>
-    <PackageIcon>Logo.png</PackageIcon>
-    <RepositoryUrl>https://github.com/DaniloPeres/MonoGame.ShaderEffects</RepositoryUrl>
-    <PackageTags>MonoGame ShaderEffects, MonoGame Shader, MonoGame Effect</PackageTags>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <Version>1.0.2</Version>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Content\DirectX\Circle.xnb" />
-    <None Remove="Content\DirectX\CutOffByAngle.xnb" />
-    <None Remove="Content\DirectX\GrayScale.xnb" />
-    <None Remove="Content\DirectX\RoundedRectangle.xnb" />
-    <None Remove="Content\OpenGL\Circle.xnb" />
-    <None Remove="Content\OpenGL\CutOffByAngle.xnb" />
-    <None Remove="Content\OpenGL\GrayScale.xnb" />
-    <None Remove="Content\OpenGL\RoundedRectangle.xnb" />
-    <None Include="..\Logo.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Content\DirectX\Circle.xnb" />
-    <EmbeddedResource Include="Content\DirectX\CutOffByAngle.xnb" />
-    <EmbeddedResource Include="Content\DirectX\GrayScale.xnb" />
-    <EmbeddedResource Include="Content\DirectX\RoundedRectangle.xnb" />
-    <EmbeddedResource Include="Content\OpenGL\Circle.xnb" />
-    <EmbeddedResource Include="Content\OpenGL\CutOffByAngle.xnb" />
-    <EmbeddedResource Include="Content\OpenGL\GrayScale.xnb">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Content\OpenGL\RoundedRectangle.xnb" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.Portable" Version="3.7.1.189" />
-  </ItemGroup>
-
+			Options:
+			- Stroke (MonoGame.StrokeEffect)
+			- Gray Scale
+			- Circle
+			- Cut off by angle
+			- Glow (MonoGame.GlowEffect)
+		</Description>
+		<Copyright>Copyright 2024 Danilo Peres</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageLicenseFile></PackageLicenseFile>
+		<PackageProjectUrl></PackageProjectUrl>
+		<PackageIcon>Logo.png</PackageIcon>
+		<RepositoryUrl>https://github.com/DaniloPeres/MonoGame.ShaderEffects</RepositoryUrl>
+		<PackageTags>MonoGame ShaderEffects, MonoGame Shader, MonoGame Effect</PackageTags>
+		<Version>1.0.3</Version>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+		<None Remove="Content\bin\DesktopGL\Circle.xnb" />
+		<None Remove="Content\bin\DesktopGL\CutOffByAngle.xnb" />
+		<None Remove="Content\bin\DesktopGL\GrayScale.xnb" />
+		<None Remove="Content\bin\DesktopGL\RoundedRectangle.xnb" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Content\bin\DesktopGL\Circle.xnb">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Content\bin\DesktopGL\CutOffByAngle.xnb">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Content\bin\DesktopGL\GrayScale.xnb">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Content\bin\DesktopGL\RoundedRectangle.xnb">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\Logo.png" Link="Logo.png">
+			<PackagePath></PackagePath>
+			<Pack>True</Pack>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.2.1105">
+			<PrivateAssets>All</PrivateAssets>
+		</PackageReference>
+	</ItemGroup>
 </Project>
